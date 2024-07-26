@@ -1,22 +1,42 @@
 document.addEventListener("DOMContentLoaded", () => {
     const container = document.querySelector("#game");
 
-    const authors = ["Austen", "Bronte", "Carroll", "Dickens", "Eliot", "Faulkner", "Gaskell", "Hemingway", "Ishiguro", "Joyce"];
-    
-    let lastTerm = "";
-    function getRandomAuthor() {
-        let newAuthor;
-        while ((newAuthor = authors[Math.floor(Math.random() * authors.length)]) === lastTerm);
-        lastTerm = newAuthor;
-        return newAuthor;
+    let authors = {};
+    let termCompare;
+    let termReference;
+
+    initialize();
+
+    async function initialize() {
+        try {
+            const response = await fetch('resources/authors.json');
+            const data = await response.json();
+            authors = data.authors.reduce((acc, author) => {
+                const key = `${author.firstname} ${author.lastname}`;
+                acc[key] = author;
+                return acc;
+            }, {});
+
+            termCompare = getNewTerm();
+            termReference = getNewTerm();
+            createGame();
+        } catch (error) {
+            console.error("Error fetching authors:", error);
+        }
+    }  
+        
+    function getNewTerm() {
+        const keys = Object.keys(authors);
+        let term;
+        do {
+            term = keys[Math.floor(Math.random() * keys.length)]
+        } while (term == termCompare)
+        return term;
     }
     
     function createGame() {
         let termElementTop = document.querySelector(".term-top");
         let termElementBot = document.querySelector(".term-bot");
-
-        let termCompare = getRandomAuthor();
-        let termReference = getRandomAuthor();
 
         termElementTop.textContent = termCompare;
         termElementBot.textContent = termReference;
@@ -25,9 +45,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         function handleChoice(choice) {
             const correct = choice 
-                ? termElementBot.textContent.localeCompare(termElementTop.textContent) < 0 
-                : termElementBot.textContent.localeCompare(termElementTop.textContent) > 0;
-            console.log(correct);
+                ? termElementBot.textContent.localeCompare(termElementTop.textContent) <= 0 
+                : termElementBot.textContent.localeCompare(termElementTop.textContent) >= 0;
             if (correct) {
                 result.textContent = "Correct!";
                 termElementTop.className = "term term-bot"
@@ -48,7 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         function refresh() {
             termReference = termCompare;
-            termCompare = getRandomAuthor();
+            termCompare = getNewTerm();
             termElementTop = document.querySelector(".term-top");
             termElementBot = document.querySelector(".term-bot");
             termElementTop.textContent = termCompare;
@@ -82,7 +101,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const afterButton = document.getElementById("after-button")
 
         beforeButton.addEventListener("mouseover", () => {
-            console.log(termCompare + " " + termReference)
             termElementTop.style.transform = "translate(-1em) rotate(-10deg)"
             termElementBot.style.transform = "translate(0.5em) rotate(2deg)"
             document.getElementById("span-before").style.textDecoration = "underline";
@@ -106,24 +124,4 @@ document.addEventListener("DOMContentLoaded", () => {
         beforeButton.addEventListener("click", () => handleChoice(false));
         afterButton.addEventListener("click", () => handleChoice(true));
     }
-
-    //     const beforeButton = createButton("Before");
-    //     const afterButton = createButton("After");
-    //     container.appendChild(beforeButton);
-    //     container.appendChild(afterButton);
-        
-    //     const result = Object.assign(document.createElement("p"),{id:"result"});
-    //     container.appendChild(result);
-
-
-    //     beforeButton.addEventListener("click", () => handleGuess(true));
-    //     afterButton.addEventListener("click", () => handleGuess(false));
-
-    //     document.addEventListener("keydown", (event) => {
-    //         if (event.key === "ArrowLeft") handleGuess(true);
-    //         if (event.key === "ArrowRight") handleGuess(false);
-    //     });
-    // }
-
-    createGame();
 });
