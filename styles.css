@@ -1,0 +1,135 @@
+body {
+    background-color: #faf7f3;
+    margin: 0;
+    overflow: hidden;
+    font-size: 1em;
+}
+h1 {
+    font-family: "tiffin-latin-variable", sans-serif;
+    font-variation-settings: "wght" 400;
+    font-style: normal;
+    font-size: 2em;
+}
+h3 {
+    font-family: "tiffin-latin-variable", sans-serif;
+    font-variation-settings: "wght" 300;
+    font-style: normal;
+    margin-top: 2.5rem
+}
+p {
+    font-family: halyard-text, sans-serif;
+    font-weight: 200;
+    font-style: normal;
+    font-size: 14px;
+}
+.hero {
+    padding-top: 4rem;
+}
+.content {
+    max-width: 30em;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+#game-container {
+    margin-top: 3rem;
+    height: 25rem;
+    width: 20rem;
+    margin-left: auto;
+    margin-right: auto;
+    outline: 2px dotted;
+    position: relative;
+}
+#game {
+    padding: 2em;
+    text-align: center;
+}
+select {
+    font-family: halyard-text, sans-serif;
+    padding: 6px 12px;
+    background-color: transparent;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    appearance: auto;
+    border: 0px;
+}
+#term-container {
+    position: relative;
+}
+.term {
+    position: absolute;
+    font-family: "tiffin-latin-variable", sans-serif;
+    font-variation-settings: "wght" 600;
+    font-style: normal;
+    font-size: 1.5em;
+}
+#is {
+    top: 8.5em;
+    left: 0;
+    right: 0;
+    position: absolute;
+}
+.term-top {
+    top: 5em;
+    left: 0;
+    right: 0;
+    transition: 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 1s;
+}
+.term-bot {
+    top: 8em;
+    left: 0;
+    right: 0;
+    transition: 0.5s ease;
+}
+#choices-container {
+    left: 0;
+    right: 0;
+    text-align: center;
+    
+    height: 45%;
+    
+    position: absolute;
+    bottom: 0;
+
+    font-size: 0px;
+}
+#result {
+    left: 0;
+    right: 0;
+    height: 40px;
+    /* position: absolute; */
+}
+.choice {
+    display: inline-block;
+    font-family: "tiffin-latin-variable", sans-serif;
+    font-variation-settings: "wght" 400;
+    font-style: normal;
+    font-size: 16px;
+
+    background-color: transparent;
+    outline: 1px solid black;
+    color: black;
+    border: none;
+
+    margin: 10px;
+    padding: 10px 20px;
+
+    cursor: pointer;
+}
+.choice:hover {
+    background-color: white;
+    color: #00594f;
+    outline: 1px solid #00594f;
+    border-bottom: 3px solid #00594f;
+
+    transform: translateY(-3px);
+}
+.choice:active {
+    background-color: #F5DFD3;
+    color: #777777;
+    outline: 1px solid #777777;
+    border-bottom: 0px;
+
+    transform: translateY(0px);
+}
