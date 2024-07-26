@@ -1,12 +1,320 @@
-[
-    "Austen",
-    "Bronte",
-    "Carroll",
-    "Dickens",
-    "Eliot",
-    "Faulkner",
-    "Gaskell",
-    "Hemingway",
-    "Ishiguro",
-    "Joyce"
-]
+{
+    "authors": [
+        {
+            "firstname": "Jon",
+            "lastname": "Fosse"
+        },
+        {
+            "firstname": "Annie",
+            "lastname": "Ernaux"
+        },
+        {
+            "firstname": "Abdulrazak",
+            "lastname": "Gurnah"
+        },
+        {
+            "firstname": "Louise",
+            "lastname": "Glück"
+        },
+        {
+            "firstname": "Peter",
+            "lastname": "Handke"
+        },
+        {
+            "firstname": "Olga",
+            "lastname": "Tokarczuk"
+        },
+        {
+            "firstname": "Kazuo",
+            "lastname": "Ishiguro"
+        },
+        {
+            "firstname": "Bob",
+            "lastname": "Dylan"
+        },
+        {
+            "firstname": "Svetlana",
+            "lastname": "Alexievich"
+        },
+        {
+            "firstname": "Patrick",
+            "lastname": "Modiano"
+        },
+        {
+            "firstname": "Alice",
+            "lastname": "Munro"
+        },
+        {
+            "firstname": "Mo",
+            "lastname": "Yan"
+        },
+        {
+            "firstname": "Tomas",
+            "lastname": "Tranströmer"
+        },
+        {
+            "firstname": "Mario",
+            "lastname": "Vargas Llosa"
+        },
+        {
+            "firstname": "Herta",
+            "lastname": "Müller"
+        },
+        {
+            "firstname": "J. M.",
+            "lastname": "Coetzee"
+        },
+        {
+            "firstname": "Orhan",
+            "lastname": "Pamuk"
+        },
+        {
+            "firstname": "Elfriede",
+            "lastname": "Jelinek"
+        },
+        {
+            "firstname": "Imre",
+            "lastname": "Kertész"
+        },
+        {
+            "firstname": "V. S.",
+            "lastname": "Naipaul"
+        },
+        {
+            "firstname": "Günter",
+            "lastname": "Grass"
+        },
+        {
+            "firstname": "Dario",
+            "lastname": "Fo"
+        },
+        {
+            "firstname": "Wislawa",
+            "lastname": "Szymborska"
+        },
+        {
+            "firstname": "Seamus",
+            "lastname": "Heaney"
+        },
+        {
+            "firstname": "Derek",
+            "lastname": "Walcott"
+        },
+        {
+            "firstname": "Nadine",
+            "lastname": "Gordimer"
+        },
+        {
+            "firstname": "Octavio",
+            "lastname": "Paz"
+        },
+        {
+            "firstname": "Camilo José",
+            "lastname": "Cela"
+        },
+        {
+            "firstname": "Joseph",
+            "lastname": "Brodsky"
+        },
+        {
+            "firstname": "Wole",
+            "lastname": "Soyinka"
+        },
+        {
+            "firstname": "Claude",
+            "lastname": "Simon"
+        },
+        {
+            "firstname": "Jaroslav",
+            "lastname": "Seifert"
+        },
+        {
+            "firstname": "William",
+            "lastname": "Golding"
+        },
+        {
+            "firstname": "Gabriel",
+            "lastname": "García Márquez"
+        },
+        {
+            "firstname": "Elias",
+            "lastname": "Canetti"
+        },
+        {
+            "firstname": "Czesław",
+            "lastname": "Miłosz"
+        },
+        {
+            "firstname": "Isaac Bashevis",
+            "lastname": "Singer"
+        },
+        {
+            "firstname": "Saul",
+            "lastname": "Bellow"
+        },
+        {
+            "firstname": "Eugenio",
+            "lastname": "Montale"
+        },
+        {
+            "firstname": "Vicente",
+            "lastname": "Aleixandre"
+        },
+        {
+            "firstname": "Aleksandr",
+            "lastname": "Solzhenitsyn"
+        },
+        {
+            "firstname": "Heinrich",
+            "lastname": "Böll"
+        },
+        {
+            "firstname": "Pablo",
+            "lastname": "Neruda"
+        },
+        {
+            "firstname": "Samuel",
+            "lastname": "Beckett"
+        },
+        {
+            "firstname": "Aleksandr",
+            "lastname": "Solzhenitsyn"
+        },
+        {
+            "firstname": "Miguel Ángel",
+            "lastname": "Asturias"
+        },
+        {
+            "firstname": "Shmuel Yosef",
+            "lastname": "Agnon"
+        },
+        {
+            "firstname": "Mikhail",
+            "lastname": "Sholokhov"
+        },
+        {
+            "firstname": "Jean-Paul",
+            "lastname": "Sartre"
+        },
+        {
+            "firstname": "Giorgos",
+            "lastname": "Seferis"
+        },
+        {
+            "firstname": "John Steinbeck",
+            "lastname": ""
+        },
+        {
+            "firstname": "Ivo",
+            "lastname": "Andrić"
+        },
+        {
+            "firstname": "Saint-John",
+            "lastname": "Perse"
+        },
+        {
+            "firstname": "Salvatore",
+            "lastname": "Quasimodo"
+        },
+        {
+            "firstname": "Albert",
+            "lastname": "Camus"
+        },
+        {
+            "firstname": "Juan Ramón",
+            "lastname": "Jiménez"
+        },
+        {
+            "firstname": "Halldór",
+            "lastname": "Laxness"
+        },
+        {
+            "firstname": "Ernest",
+            "lastname": "Hemingway"
+        },
+        {
+            "firstname": "Winston",
+            "lastname": "Churchill"
+        },
+        {
+            "firstname": "Pär",
+            "lastname": "Lagerkvist"
+        },
+        {
+            "firstname": "Bertrand",
+            "lastname": "Russell"
+        },
+        {
+            "firstname": "Hermann",
+            "lastname": "Hesse"
+        },
+        {
+            "firstname": "André",
+            "lastname": "Gide"
+        },
+        {
+            "firstname": "Gabriela",
+            "lastname": "Mistral"
+        },
+        {
+            "firstname": "Johannes V. Jensen",
+            "lastname": ""
+        },
+        {
+            "firstname": "Luigi",
+            "lastname": "Pirandello"
+        },
+        {
+            "firstname": "Sigrid",
+            "lastname": "Undset"
+        },
+        {
+            "firstname": "Sinclair",
+            "lastname": "Lewis"
+        },
+        {
+            "firstname": "Thomas",
+            "lastname": "Mann"
+        },
+        {
+            "firstname": "George Bernard",
+            "lastname": "Shaw"
+        },
+        {
+            "firstname": "Henri",
+            "lastname": "Bergson"
+        },
+        {
+            "firstname": "Anatole",
+            "lastname": "France"
+        },
+        {
+            "firstname": "Rudyard",
+            "lastname": "Kipling"
+        },
+        {
+            "firstname": "Henryk",
+            "lastname": "Sienkiewicz"
+        },
+        {
+            "firstname": "José",
+            "lastname": "Echegaray"
+        },
+        {
+            "firstname": "Frédéric",
+            "lastname": "Mistral"
+        },
+        {
+            "firstname": "Bjørnstjerne",
+            "lastname": "Bjørnson"
+        },
+        {
+            "firstname": "Theodor",
+            "lastname": "Mommsen"
+        },
+        {
+            "firstname": "Sully",
+            "lastname": "Prudhomme"
+        }
+    ]
+}
