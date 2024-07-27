@@ -1,7 +1,7 @@
 body {
     background-color: #faf7f3;
     margin: 0;
-    overflow: hidden;
+    overflow: auto;
     font-size: 1em;
 }
 h1 {
@@ -155,4 +155,11 @@ select {
 }
 span.selected {
     text-decoration: underline;
+}
+@media only screen and (max-width: 800px) {
+    .choice {
+        font-size: 18px;
+        margin: 10px;
+        padding: 15px 25px;
+    }
 }
