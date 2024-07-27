@@ -35,8 +35,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     
     function createGame() {
-        let termElementTop = document.querySelector(".term-top");
-        let termElementBot = document.querySelector(".term-bot");
+        let termElementTop = document.querySelector(".term.top");
+        let termElementBot = document.querySelector(".term.bot");
 
         termElementTop.textContent = termCompare;
         termElementBot.textContent = termReference;
@@ -49,10 +49,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 : termElementBot.textContent.localeCompare(termElementTop.textContent) >= 0;
             if (correct) {
                 result.textContent = "Correct!";
-                termElementTop.className = "term term-bot"
-                termElementBot.className = "term term-top"
-                // termReference = termCompare;
-                // termCompare = getRandomAuthor();
+                termElementTop.className = "term bot"
+                termElementBot.className = "term top"
                 refresh();
             } else {
                 result.textContent = "Incorrect.";
@@ -68,57 +66,63 @@ document.addEventListener("DOMContentLoaded", () => {
         function refresh() {
             termReference = termCompare;
             termCompare = getNewTerm();
-            termElementTop = document.querySelector(".term-top");
-            termElementBot = document.querySelector(".term-bot");
+            termElementTop = document.querySelector(".term.top");
+            termElementBot = document.querySelector(".term.bot");
             termElementTop.textContent = termCompare;
             termElementBot.textContent = termReference;
 
-            termElementBot.style.transition = "0.5s ease" // DEFAULT
-            termElementBot.style.transform = "translate(0em) scale(2,2)"
+            termElementBot.classList.add("animate");
 
             setTimeout(() => {
-                termElementBot.style.transform = "translate(0em) scale(1,1)"
-            }, 100);
+                termElementBot.classList.remove("animate");
+            }, 50);
             
-            // termElementBot.style.transition = "all 0s linear"
-            // termElementBot.style.opacity = "0.1";
-            // setTimeout(() => {
-            //     termElementBot.style.transition = "0.5s ease"
-            //     termElementBot.style.opacity = "1";
-            // }, 100);
-            
-            termElementTop.style.transition = "all 0s linear"
-            termElementTop.style.transform = "translateY(-6em)"
-            termElementTop.style.opacity = "0";
+            termElementTop.classList.add("animate");
             setTimeout(() => {
-                termElementTop.style.transition = "0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 1s" // DEFAULT
-                termElementTop.style.transform = "translate(0em)"
-                termElementTop.style.opacity = "1";
+                termElementTop.classList.remove("animate");
             }, 0);
         }
 
-        const beforeButton = document.getElementById("before-button")
-        const afterButton = document.getElementById("after-button")
+        const beforeButton = document.getElementById("before-button");
+        const afterButton = document.getElementById("after-button");
+        const beforeSpan = document.querySelector("#before");
+        const afterSpan = document.querySelector("#after");
 
         beforeButton.addEventListener("mouseover", () => {
-            termElementTop.style.transform = "translate(-1em) rotate(-10deg)"
-            termElementBot.style.transform = "translate(0.5em) rotate(2deg)"
-            document.getElementById("span-before").style.textDecoration = "underline";
+            termElementTop.classList.add("selected", "before");
+            termElementBot.classList.add("selected", "before");
+            beforeSpan.classList.add("selected");
+            beforeButton.classList.add("hover");
+        });
+        beforeButton.addEventListener("mousedown", () => {
+            beforeButton.classList.add("active");
+        });
+        beforeButton.addEventListener("mouseup", () => {
+            beforeButton.classList.remove("active");
         });
         beforeButton.addEventListener("mouseout", () => {
-            termElementTop.style.transform = "translate(0em)"
-            termElementBot.style.transform = "translate(0em)"
-            document.getElementById("span-before").style.textDecoration = "";
+            termElementTop.classList.remove("selected", "before");
+            termElementBot.classList.remove("selected", "before");
+            beforeSpan.classList.remove("selected");
+            beforeButton.classList.remove("hover");
         });
         afterButton.addEventListener("mouseover", () => {
-            termElementTop.style.transform = "translate(1em) rotate(10deg)"
-            termElementBot.style.transform = "translate(-0.5em) rotate(-2deg)"
-            document.getElementById("span-after").style.textDecoration = "underline";
+            termElementTop.classList.add("selected", "after");
+            termElementBot.classList.add("selected", "after");
+            afterSpan.classList.add("selected");
+            afterButton.classList.add("hover");
+        });
+        afterButton.addEventListener("mousedown", () => {
+            afterButton.classList.add("active");
+        });
+        afterButton.addEventListener("mouseup", () => {
+            afterButton.classList.remove("active");
         });
         afterButton.addEventListener("mouseout", () => {
-            termElementTop.style.transform = "translate(0em)"
-            termElementBot.style.transform = "translate(0em)"
-            document.getElementById("span-after").style.textDecoration = "";
+            termElementTop.classList.remove("selected", "after");
+            termElementBot.classList.remove("selected", "after");
+            afterSpan.classList.remove("selected");
+            afterButton.classList.remove("hover");
         });
 
         beforeButton.addEventListener("click", () => handleChoice(false));

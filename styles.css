@@ -70,17 +70,37 @@ select {
     right: 0;
     position: absolute;
 }
-.term-top {
+.term.top {
     top: 5em;
     left: 0;
     right: 0;
-    transition: 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 1s;
+    transition: 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s;
 }
-.term-bot {
+.term.top.selected.before {
+    transform: translate(-1em) rotate(-10deg);
+}
+.term.top.selected.after {
+    transform: translate(1em) rotate(10deg);
+}
+.term.bot {
     top: 8em;
     left: 0;
     right: 0;
-    transition: 0.5s ease;
+    transition: 0.8s ease;
+}
+.term.bot.selected.before {
+    transform: translate(0.5em) rotate(2deg);
+}
+.term.bot.selected.after {
+    transform: translate(-0.5em) rotate(-2deg);
+}
+.term.top.animate {
+    transition: 0s;
+    transform: translateY(-6em);
+    opacity: 0;
+}
+.term.bot.animate {
+    transform: scale(2,2);
 }
 #choices-container {
     left: 0;
@@ -117,7 +137,7 @@ select {
 
     cursor: pointer;
 }
-.choice:hover {
+.choice.hover {
     background-color: white;
     color: #00594f;
     outline: 1px solid #00594f;
@@ -125,11 +145,14 @@ select {
 
     transform: translateY(-3px);
 }
-.choice:active {
+.choice.active {
     background-color: #F5DFD3;
     color: #777777;
     outline: 1px solid #777777;
     border-bottom: 0px;
 
     transform: translateY(0px);
+}
+span.selected {
+    text-decoration: underline;
 }
