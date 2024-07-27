@@ -1,9 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const container = document.querySelector("#game");
-
+    const game = document.getElementById("game");
     let authors = {};
-    let termCompare;
-    let termReference;
 
     initialize();
 
@@ -17,117 +14,51 @@ document.addEventListener("DOMContentLoaded", () => {
                 return acc;
             }, {});
 
-            termCompare = getNewTerm();
-            termReference = getNewTerm();
-            createGame();
         } catch (error) {
             console.error("Error fetching authors:", error);
         }
+        createGame();
     }  
-        
-    function getNewTerm() {
-        const keys = Object.keys(authors);
-        let term;
-        do {
-            term = keys[Math.floor(Math.random() * keys.length)]
-        } while (term == termCompare)
-        return term;
-    }
     
     function createGame() {
-        let termElementTop = document.querySelector(".term.top");
-        let termElementBot = document.querySelector(".term.bot");
+        generateTermElement("bot");
+        generateTermElement("top");
 
-        termElementTop.textContent = termCompare;
-        termElementBot.textContent = termReference;
-        
         const result = document.getElementById("result");
 
         function handleChoice(choice) {
             const correct = choice 
-                ? termElementBot.textContent.localeCompare(termElementTop.textContent) <= 0 
-                : termElementBot.textContent.localeCompare(termElementTop.textContent) >= 0;
+                ? document.querySelector(".bot:not(.expire)").textContent.localeCompare(document.querySelector(".top").textContent) <= 0 
+                : document.querySelector(".bot:not(.expire)").textContent.localeCompare(document.querySelector(".top").textContent) >= 0;
             if (correct) {
                 result.textContent = "Correct!";
-                termElementTop.className = "term bot"
-                termElementBot.className = "term top"
-                refresh();
+                appendTerm();
             } else {
                 result.textContent = "Incorrect.";
             }
-            result.style.transition = "none"
-            result.style.opacity = "1";
-            setTimeout(() => {
-                result.style.transition = "opacity 2s ease"
-                result.style.opacity = "0";
-            }, 500);
+            result.style.animation = "none"
+            result.offsetHeight;
+            result.style.animation = ""
         }
 
-        function refresh() {
-            termReference = termCompare;
-            termCompare = getNewTerm();
-            termElementTop = document.querySelector(".term.top");
-            termElementBot = document.querySelector(".term.bot");
-            termElementTop.textContent = termCompare;
-            termElementBot.textContent = termReference;
-
-            termElementBot.classList.add("animate");
-
-            setTimeout(() => {
-                termElementBot.classList.remove("animate");
-            }, 50);
-            
-            termElementTop.classList.add("animate");
-            setTimeout(() => {
-                termElementTop.classList.remove("animate");
-            }, 0);
+        const choices = document.querySelectorAll("button.choice");
+        for (const choice of choices) {
+            choice.addEventListener("mouseover", () => {
+                choice.classList.add("hover");
+            });
+            choice.addEventListener("mouseout", () => {
+                choice.classList.remove("hover");
+            });
+            choice.addEventListener("mousedown", () => {
+                choice.classList.add("active");
+            });
+            choice.addEventListener("mouseup", () => {
+                choice.classList.remove("active");
+            });
+            choice.addEventListener("click", () => {
+                handleChoice(choice.getAttribute("id") == "after");
+            });
         }
-
-        const beforeButton = document.getElementById("before-button");
-        const afterButton = document.getElementById("after-button");
-        const beforeSpan = document.querySelector("#before");
-        const afterSpan = document.querySelector("#after");
-
-        beforeButton.addEventListener("mouseover", () => {
-            termElementTop.classList.add("selected", "before");
-            termElementBot.classList.add("selected", "before");
-            beforeSpan.classList.add("selected");
-            beforeButton.classList.add("hover");
-        });
-        beforeButton.addEventListener("mousedown", () => {
-            beforeButton.classList.add("active");
-        });
-        beforeButton.addEventListener("mouseup", () => {
-            beforeButton.classList.remove("active");
-        });
-        beforeButton.addEventListener("mouseout", () => {
-            termElementTop.classList.remove("selected", "before");
-            termElementBot.classList.remove("selected", "before");
-            beforeSpan.classList.remove("selected");
-            beforeButton.classList.remove("hover");
-        });
-        afterButton.addEventListener("mouseover", () => {
-            termElementTop.classList.add("selected", "after");
-            termElementBot.classList.add("selected", "after");
-            afterSpan.classList.add("selected");
-            afterButton.classList.add("hover");
-        });
-        afterButton.addEventListener("mousedown", () => {
-            afterButton.classList.add("active");
-        });
-        afterButton.addEventListener("mouseup", () => {
-            afterButton.classList.remove("active");
-        });
-        afterButton.addEventListener("mouseout", () => {
-            termElementTop.classList.remove("selected", "after");
-            termElementBot.classList.remove("selected", "after");
-            afterSpan.classList.remove("selected");
-            afterButton.classList.remove("hover");
-        });
-
-        beforeButton.addEventListener("click", () => handleChoice(false));
-        afterButton.addEventListener("click", () => handleChoice(true));
-
         document.addEventListener("keydown", (event) => {
             if (event.key === "ArrowLeft") {
                 handleChoice(false);
@@ -137,4 +68,38 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
+
+    function appendTerm() {
+        do {
+            const removedTerm = document.querySelector(".bot:not(.expire)");
+            removeTermElement(removedTerm);
+            const currentTerm = document.querySelector(".top");
+            currentTerm.classList.replace("top", "bot");
+            generateTermElement("top");
+        } while (!document.querySelector(".bot:not(.expire)"))
+    }
+
+    function generateTermElement(index) {
+        let generated = document.createElement("div");
+        game.appendChild(generated);
+        generated.classList.add("term", index);
+        generated.textContent = generateTerm();
+    }
+
+    function generateTerm() {
+        const keys = Object.keys(authors);
+        let term;
+        do {
+            term = keys[Math.floor(Math.random() * keys.length)]
+        } while (term == document.querySelector(".bot:not(.expire)").textContent)
+        return term;
+    }
+
+    function removeTermElement(term) {
+        term.classList.add("expire");
+        term.addEventListener("animationend", () => {
+            term.remove();
+        })
+    }
+
 });

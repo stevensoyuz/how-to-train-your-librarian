@@ -1,47 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="https://use.typekit.net/gaf7jha.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>How to Train Your Librarian</title>
-        <link rel="stylesheet" href="https://use.typekit.net/gaf7jha.css">
-        <link rel="stylesheet" href="styles.css">
     </head>
     <body>
         <main>
-            <header class="hero">
-                <div class="content">
-                    <h1>How to Train Your Librarian</h1>
-                    <p>A small tool created by @stevensoyuz to help us become faster sorters.</p>
-                </div>
-            </header>
-            <section>
-                <div class="content">
-                    <div id="game-container">
-                        <div id="game">
-                            <div id="config-container">
-                                <select name="type" id="select-type">
-                                    <option value="dewey">Dewey Decimal</option>
-                                    <option value="book">Book Titles</option>
-                                    <option value="authors">Authors</option>
-                                    <option value="letters">Single Letters</option>
-                                </select>
-                            </div>
-                            <div id="terms-container">
-                                <div class="term top">Word</div>
-                                <div class="term bot">Word</div>
-                                <div id="is"><p>is <span id="before">before</span> or <span id="after">after</span> ..</p></div>
-                            </div>
-                            <div id="choices-container">
-                                <p id="result">...</p>
-                                <button type="button" class="choice" id="before-button">Before</button>
-                                <button type="button" class="choice" id="after-button">After</button>
-                            </div>
-                        </div>
-                    </div>
-                    <h3>Margin</h3>
-                    <p>Padding is the space between the content and the border of an element. Padding is valuable in making additional space inside an element, keeping it at a set distance from other aspects of a website. Using padding is extremely beneficial when you need to separate text boxes and images while also keeping them aligned.</p>
-                </div>
-            </section>
+            <h1>How to Train Your Librarian</h1>
+            <p>A small tool created by @stevensoyuz to help us become faster sorters.</p>
+            <div id="game">
+                <p id="middle-text">is before or after ..</p>
+                <section>
+                    <p id="result">...</p>
+                    <button type="button" class="choice" id="before">Before</button>
+                    <button type="button" class="choice" id="after">After</button>
+                </section>
+            </div>
+            <h3>What is this for?</h3>
+            <p>This is a small web application I developed in 2024 after feeling silly about just how long it took me to catalogue things alphabetically. It's been a great help to me, and I figured it might be useful for others preparing for positions at their local library, or just wanted to become faster sorters.</p>
+            <p>
+                <a href="https://www.brookings.edu/articles/how-public-libraries-help-build-healthy-communities/">How public libraries help build healthy communities</a>
+            </p>
+            <p id="socials">
+                <a href="https://github.com/stevensoyuz/how-to-train-your-librarian">Twitter</a>
+                <a href="https://github.com/stevensoyuz/how-to-train-your-librarian">Github</a>
+                <a href="https://github.com/stevensoyuz/how-to-train-your-librarian">LinkedIn</a>
+            </p>
         </main>
         <script src="scripts.js"></script>
     </body>

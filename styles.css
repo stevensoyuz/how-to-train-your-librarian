@@ -1,131 +1,127 @@
+/* outline: 2px solid red;
+    border: 2px dotted blue; */
+:root {
+    --accent: #00594f;
+    --draw-light-primary: black;
+    --draw-light-primary-inverted: white;
+    --draw-light-secondary: #777777;
+    --fill-light-primary: #faf7f3;
+    --fill-light-secondary: #f5dfd3;
+
+    --draw-dark-primary: white;
+}
+
 body {
-    background-color: #faf7f3;
     margin: 0;
+
+    background-color: var(--fill-light-primary);
+
     overflow: auto;
+
+    font-family: "halyard-text", sans-serif;
+    font-weight: 200;
     font-size: 1em;
+
+    max-width: 30em;
+    
+    margin-left: auto;
+    margin-right: auto;
+}
+h1, h3 {
+    font-family: "tiffin-latin-variable", serif;
+    font-variation-settings: "wght" 300;
 }
 h1 {
-    font-family: "tiffin-latin-variable", sans-serif;
-    font-variation-settings: "wght" 300;
-    font-style: normal;
-    font-size: 2em;
+    margin-top: 4rem;
+    margin-bottom: -0.2em;
 }
 h3 {
-    font-family: "tiffin-latin-variable", sans-serif;
-    font-variation-settings: "wght" 300;
-    font-style: normal;
     margin-top: 2.5rem
 }
 p {
-    font-family: halyard-text, sans-serif;
-    font-weight: 200;
-    font-style: normal;
     font-size: 14px;
 }
-.hero {
-    padding-top: 4rem;
+a {
+    color: var(--accent);
 }
-.content {
-    max-width: 30em;
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 2rem;
-    padding-right: 2rem;
+#socials {
+    margin-top: 2em;
 }
-#game-container {
-    margin-top: 3rem;
-    height: 25rem;
-    width: 20rem;
-    margin-left: auto;
-    margin-right: auto;
-    outline: 2px dotted;
-    position: relative;
+#socials > a {
+    background-color: var(--accent);
+    color: var(--draw-light-primary-inverted);
+    padding: 1px 7px;
+    margin-right: 3px;
+    text-decoration: none;
 }
 #game {
-    padding: 2em;
-    text-align: center;
-}
-select {
-    font-family: halyard-text, sans-serif;
-    padding: 6px 12px;
-    background-color: transparent;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    appearance: auto;
-    border: 0px;
-}
-#term-container {
+    margin-top: 3rem;
+
+    height: 25rem;
+    width: 20rem;
+
+    margin-left: auto;
+    margin-right: auto;
+    
     position: relative;
+
+    text-align: center;
+
+    outline: 2px dotted;
 }
-.term {
+#game > div {
     position: absolute;
-    font-family: "tiffin-latin-variable", sans-serif;
-    font-variation-settings: "wght" 600;
-    font-style: normal;
-    font-size: 1.5em;
-}
-#is {
-    top: 8.5em;
     left: 0;
     right: 0;
-    position: absolute;
 }
-.term.top {
+.term {
+    font-family: "tiffin-latin-variable", serif;
+    font-variation-settings: "wght" 600;
+    font-size: 1.5em;
+}
+#middle-text {
+    position: absolute;
+    top: 10.5em;
+    left: 0;
+    right: 0;
+}
+
+.top {
     top: 5em;
     left: 0;
     right: 0;
-    transition: 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s;
+
+    animation: 0.5s fade-in;
 }
-.term.top.selected.before {
-    transform: translate(-1em) rotate(-10deg);
-}
-.term.top.selected.after {
-    transform: translate(1em) rotate(10deg);
-}
-.term.bot {
+.bot {
     top: 8em;
     left: 0;
     right: 0;
-    transition: 0.8s ease;
+    transition: 1s ease;
 }
-.term.bot.selected.before {
-    transform: translate(0.5em) rotate(2deg);
+.expire {
+    transform: translateY(1em);
+    animation: 0.2s fade-in reverse;
 }
-.term.bot.selected.after {
-    transform: translate(-0.5em) rotate(-2deg);
-}
-.term.top.animate {
-    transition: 0s;
-    transform: translateY(-6em);
-    opacity: 0;
-}
-.term.bot.animate {
-    transform: scale(2,2);
-}
-#choices-container {
+
+#game > section {
     left: 0;
     right: 0;
-    text-align: center;
-    
     height: 45%;
-    
     position: absolute;
     bottom: 0;
-
     font-size: 0px;
 }
+
 #result {
-    left: 0;
-    right: 0;
-    height: 40px;
-    /* position: absolute; */
+    animation: 0.5s linear 1s 1 reverse fade-in running forwards;
 }
+
 .choice {
     display: inline-block;
-    font-family: "tiffin-latin-variable", sans-serif;
+    font-family: "tiffin-latin-variable", serif;
     font-variation-settings: "wght" 400;
-    font-style: normal;
-    font-size: 16px;
+    font-size: 18px;
 
     background-color: transparent;
     outline: 1px solid black;
@@ -133,33 +129,31 @@ select {
     border: none;
 
     margin: 10px;
-    padding: 10px 20px;
+    margin-top: 20px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    min-width: 5em;
 
     cursor: pointer;
 }
 .choice.hover {
     background-color: white;
-    color: #00594f;
-    outline: 1px solid #00594f;
-    border-bottom: 3px solid #00594f;
+    color: var(--accent);
+    outline: 1px solid var(--accent);
+    border-bottom: 3px solid var(--accent);
 
     transform: translateY(-3px);
 }
 .choice.active {
-    background-color: #F5DFD3;
-    color: #777777;
-    outline: 1px solid #777777;
+    background-color: var(--fill-light-secondary);
+    color: var(--draw-light-secondary);
+    outline: 1px solid var(--draw-light-secondary);
     border-bottom: 0px;
 
     transform: translateY(0px);
 }
-span.selected {
-    text-decoration: underline;
-}
-@media only screen and (max-width: 800px) {
-    .choice {
-        font-size: 18px;
-        margin: 10px;
-        padding: 15px 25px;
-    }
+
+@keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
