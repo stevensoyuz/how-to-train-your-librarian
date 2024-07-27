@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const game = document.getElementById("game");
+    const game = document.getElementById("content");
     let authors = {};
 
     initialize();
