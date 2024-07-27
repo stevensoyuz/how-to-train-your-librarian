@@ -127,5 +127,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
         beforeButton.addEventListener("click", () => handleChoice(false));
         afterButton.addEventListener("click", () => handleChoice(true));
+
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "ArrowLeft") {
+                handleChoice(false);
+            }
+            if (event.key === "ArrowRight") {
+                handleChoice(true);
+            }
+        });
     }
 });
