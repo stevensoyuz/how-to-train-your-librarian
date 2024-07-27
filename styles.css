@@ -33,11 +33,11 @@ a {
     text-align: center;
     outline: 2px dotted;
 }
-#game-content {
+#content {
     height: 55%;
     position: relative;
 }
-#game-content > div {
+#content > div {
     position: absolute;
     left: 0;
     right: 0;
