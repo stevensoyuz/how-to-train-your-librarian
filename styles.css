@@ -24,9 +24,9 @@ a {
     text-decoration: none;
 }
 #game {
-    margin-top: 3rem;
-    height: 25rem;
-    width: 20rem;
+    margin-top: 4rem;
+    height: 20rem;
+    width: 18rem;
     margin-left: auto;
     margin-right: auto;
     position: relative;
@@ -34,7 +34,7 @@ a {
     outline: 2px dotted;
 }
 #content {
-    height: 55%;
+    height: 50%;
     position: relative;
 }
 #content > div {
@@ -45,7 +45,7 @@ a {
 .term {
     font-family: "tiffin-latin-variable", serif;
     font-variation-settings: "wght" 600;
-    font-size: 1.5em;
+    font-size: 20px;
 }
 .top {
     bottom: 3em;
@@ -53,7 +53,7 @@ a {
     animation: 0.5s fade-in;
 }
 #middle-text {
-    bottom: 1em;
+    bottom: 0.8em;
 }
 .bot {
     bottom: 0;
@@ -122,4 +122,21 @@ a {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+}
+
+select {
+    width: fit-content;
+    font-size: 12px;
+    font-family: "halyard-text", sans-serif;
+    font-weight: 200;
+    background-color: var(--fill-light-primary);
+    color: var(--draw-light-primary);
+    padding: 2px;
+    padding-left: 6px;
+}
+
+#term-type {
+    position: absolute;
+    top: -40px;
+    right: 0;
 }
