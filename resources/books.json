@@ -1,6 +1,6 @@
 {
     "format": "default",
-    "titles": [
+    "books": [
       { "item": "The Great Gatsby" },
       { "item": "To Kill a Mockingbird" }
     ]
