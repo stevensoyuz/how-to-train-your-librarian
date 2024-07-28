@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
         switch (format) {
             case "default":
                 return `${term.item}`;
-            case "lastname, firstname":
+            case "names":
                 return `${term.lastname}, ${term.firstname}`;
             default:
                 return "";
