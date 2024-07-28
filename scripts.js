@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const response = await fetch('https://raw.githubusercontent.com/stevensoyuz/how-to-train-your-librarian/main/resources/authors.json');
             const data = await response.json();
             authors = data.authors.reduce((acc, author) => {
-                const key = `${author.firstname} ${author.lastname}`;
+                const key = `${author.lastname}, ${author.firstname}`;
                 acc[key] = author;
                 return acc;
             }, {});
