@@ -1,13 +1,8 @@
 {
-    "format": "lastname, firstname",
-    "authors": [
-        {
-            "firstname": "Jon",
-            "lastname": "Fosse"
-        },
-        {
-            "firstname": "Annie",
-            "lastname": "Ernaux"
-        }
+    "format": "default",
+    "titles": [
+      { "term": "The Great Gatsby" },
+      { "term": "To Kill a Mockingbird" }
     ]
 }
+  
