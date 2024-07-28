@@ -1,0 +1,13 @@
+{
+    "format": "lastname, firstname",
+    "authors": [
+        {
+            "firstname": "Jon",
+            "lastname": "Fosse"
+        },
+        {
+            "firstname": "Annie",
+            "lastname": "Ernaux"
+        }
+    ]
+}
