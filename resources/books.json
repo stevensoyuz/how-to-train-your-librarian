@@ -1,8 +1,12 @@
 {
     "format": "default",
-    "books": [
-      { "item": "The Great Gatsby" },
-      { "item": "To Kill a Mockingbird" }
-    ]
+    "lists": {
+        "titles": [
+            { "item": "The Great Gatsby" },
+            { "item": "To Kill a Mockingbird" },
+            { "item": "1984" },
+            { "item": "Pride and Prejudice" },
+            { "item": "The Catcher in the Rye" }
+        ]
+    }
 }
-  
