@@ -1,7 +1,7 @@
 {
     "format": "default",
     "dewey": [
-      { "term": "001.9" },
-      { "term": "100" }
+      { "item": "001.9" },
+      { "item": "100" }
     ]
 }

@@ -1,8 +1,8 @@
 {
     "format": "default",
     "titles": [
-      { "term": "The Great Gatsby" },
-      { "term": "To Kill a Mockingbird" }
+      { "item": "The Great Gatsby" },
+      { "item": "To Kill a Mockingbird" }
     ]
 }
   
