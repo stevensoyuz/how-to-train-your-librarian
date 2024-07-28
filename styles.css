@@ -91,6 +91,7 @@ a {
     min-width: 5em;
 
     cursor: pointer;
+    touch-action: none;
 }
 .choice.hover {
     background-color: white;
