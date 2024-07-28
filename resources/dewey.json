@@ -1,19 +1,19 @@
 {
-    "format": "default",
+    "format": "{callNumbers} {authorLetters}",
     "lists": {
         "callNumbers": [
-            { "item": "662.669" },
-            { "item": "980.03" },
-            { "item": "001.942" },
-            { "item": "150.195" },
-            { "item": "220.52081" }
+            "662.669",
+            "980.03",
+            "001.942",
+            "150.195",
+            "220.52081"
         ],
         "authorLetters": [
-            { "item": "KLA" },
-            { "item": "CAS" },
-            { "item": "SMI" },
-            { "item": "JOH" },
-            { "item": "KIN" }
+            "KLA",
+            "CAS",
+            "SMI",
+            "JOH",
+            "KIN"
         ]
     }
 }

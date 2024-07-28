@@ -6,48 +6,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
     initialize();
 
-    async function initialize() {
-        await loadTerms(currentList);
-        createGame();
-        initializeEventListeners();
-    }
-
     async function loadTerms(list) {
         try {
-            const response = await fetch(`https://raw.githubusercontent.com/stevensoyuz/how-to-train-your-librarian/main/resources/${list}.json`);
+            const response = await fetch(`./resources/${list}.json`);
             const data = await response.json();
             format = data.format;
-            terms = data[list].reduce((acc, term) => {
-                const key = formatTerm(term, format);
-                acc[key] = term;
-                return acc;
-            }, {});
+            terms = data.lists || {};
         } catch (error) {
             console.error("Error fetching terms:", error);
         }
     }
 
-    function formatTerm(term, format) {
-        switch (format) {
-            case "default":
-                return `${term.item}`;
-            case "names":
-                return `${term.lastname}, ${term.firstname}`;
-            default:
-                return "";
+    function formatTerm(termParts, format) {
+        let formattedTerm = format;
+        for (const [listKey, value] of Object.entries(termParts)) {
+            const placeholder = `{${listKey}}`;
+            formattedTerm = formattedTerm.replace(placeholder, value);
         }
-    }
-
-    document.getElementById("term-type").addEventListener("change", async (event) => {
-        currentList = event.target.value;
-        await loadTerms(currentList);
-        createGame();
-    });
-
-    function createGame() {
-        clearGame();
-        generateTermElement("bot");
-        generateTermElement("top");
+        return formattedTerm;
     }
 
     function appendTerm() {
@@ -68,12 +44,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function generateTerm() {
-        const keys = Object.keys(terms);
-        let term;
-        do {
-            term = keys[Math.floor(Math.random() * keys.length)];
-        } while (term === document.querySelector(".bot:not(.expire)").textContent);
-        return term;
+        const termParts = {};
+        const listKeys = Object.keys(terms);
+
+        listKeys.forEach(listKey => {
+            const items = terms[listKey];
+            const randomIndex = Math.floor(Math.random() * items.length);
+            termParts[listKey] = items[randomIndex];
+        });
+
+        return formatTerm(termParts, format);
     }
 
     function removeTermElement(term) {
@@ -81,6 +61,12 @@ document.addEventListener("DOMContentLoaded", () => {
         term.addEventListener("animationend", () => {
             term.remove();
         });
+    }
+
+    function createGame() {
+        clearGame();
+        generateTermElement("bot");
+        generateTermElement("top");
     }
 
     function clearGame() {
@@ -104,7 +90,18 @@ document.addEventListener("DOMContentLoaded", () => {
         result.style.animation = "";
     }
 
+    async function initialize() {
+        await loadTerms(currentList);
+        createGame();
+        initializeEventListeners();
+    }
+
     function initializeEventListeners() {
+        document.getElementById("term-type").addEventListener("change", async (event) => {
+            currentList = event.target.value;
+            await loadTerms(currentList);
+            createGame();
+        });
         const choices = document.querySelectorAll("button.choice");
         for (const choice of choices) {
             choice.addEventListener("mouseover", () => {
