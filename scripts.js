@@ -19,9 +19,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function formatTerm(termParts, format) {
         let formattedTerm = format;
-        for (const [listKey, value] of Object.entries(termParts)) {
+        for (const [listKey, item] of Object.entries(termParts)) {
+            let formattedItem = item;
+            if (terms[listKey].type === "custom") {
+                const listFormat = terms[listKey].format;
+                formattedItem = listFormat;
+                item.forEach((value, index) => {
+                    const placeholder = `{${index + 1}}`;
+                    formattedItem = formattedItem.replace(placeholder, value);
+                });
+            }
             const placeholder = `{${listKey}}`;
-            formattedTerm = formattedTerm.replace(placeholder, value);
+            formattedTerm = formattedTerm.replace(placeholder, formattedItem);
         }
         return formattedTerm;
     }
@@ -48,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const listKeys = Object.keys(terms);
 
         listKeys.forEach(listKey => {
-            const items = terms[listKey];
+            const items = terms[listKey].items;
             const randomIndex = Math.floor(Math.random() * items.length);
             termParts[listKey] = items[randomIndex];
         });

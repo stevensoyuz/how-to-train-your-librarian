@@ -1,19 +1,25 @@
 {
     "format": "{callNumbers} {authorLetters}",
     "lists": {
-        "callNumbers": [
-            "662.669",
-            "980.03",
-            "001.942",
-            "150.195",
-            "220.52081"
-        ],
-        "authorLetters": [
-            "KLA",
-            "CAS",
-            "SMI",
-            "JOH",
-            "KIN"
-        ]
+        "callNumbers": {
+            "type": "static",
+            "items": [
+                "662.669",
+                "980.03",
+                "001.942",
+                "150.195",
+                "220.52081"
+            ]
+        },
+        "authorLetters": {
+            "type": "static",
+            "items": [
+                "KLA",
+                "CAS",
+                "SMI",
+                "JOH",
+                "KIN"
+            ]
+        }
     }
 }

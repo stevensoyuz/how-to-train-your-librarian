@@ -1,18 +1,15 @@
 {
     "format": "{authors}",
     "lists": {
-        "authors": [
-            "Fosse, Jon",
-            "Ernaux, Annie",
-            "Gurnah, Abdulrazak",
-            "Glück, Louise",
-            "Handke, Peter",
-            "Tokarczuk, Olga",
-            "Ishiguro, Kazuo",
-            "Dylan, Bob",
-            "Alexievich, Svetlana",
-            "Modiano, Patrick",
-            "Munro, Alice"
-        ]
+        "authors": {
+            "type": "custom",
+            "format": "{2}, {1}",
+            "items": [
+                [ "Jon", "Fosse" ],
+                [ "Annie", "Ernaux" ],
+                [ "Abdulrazak", "Gurnah" ],
+                [ "Louise", "Glück" ]
+            ]
+        }
     }
 }
