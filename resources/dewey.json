@@ -1,7 +1,7 @@
 {
-    "format": "{callNumbers} {authorLetters}",
+    "format": "{call_numbers} {author}",
     "lists": {
-        "callNumbers": {
+        "call_numbers": {
             "type": "static",
             "items": [
                 "662.669",
@@ -11,7 +11,7 @@
                 "220.52081"
             ]
         },
-        "authorLetters": {
+        "author": {
             "type": "static",
             "items": [
                 "KLA",

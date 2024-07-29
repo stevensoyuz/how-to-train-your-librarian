@@ -53,16 +53,18 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function generateTerm() {
-        const termParts = {};
+        let term;
         const listKeys = Object.keys(terms);
-
-        listKeys.forEach(listKey => {
-            const items = terms[listKey].items;
-            const randomIndex = Math.floor(Math.random() * items.length);
-            termParts[listKey] = items[randomIndex];
-        });
-
-        return formatTerm(termParts, format);
+        do {
+            const termParts = {};
+            listKeys.forEach(listKey => {
+                const items = terms[listKey].items;
+                const randomIndex = Math.floor(Math.random() * items.length);
+                termParts[listKey] = items[randomIndex];
+            });
+            term = formatTerm(termParts, format);
+        } while (term === document.querySelector(".bot:not(.expire)")?.textContent);
+        return term;
     }
 
     function removeTermElement(term) {
