@@ -1,143 +1,135 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const game = document.getElementById("content");
-    let terms = {};
-    let currentList = "authors";
-    let format = "";
+    const gameContent = document.getElementById("content");
+    const defaultList = "authors";
+    let formatPattern = ""; 
+    let listContent = {};
 
-    initialize();
+    async function init() {
+        // Event listener for changing the list
+        document.getElementById("list").addEventListener("change", async (event) => {
+            await loadList(event.target.value);
+            createGame();
+        });
 
-    async function loadTerms(list) {
-        try {
-            const response = await fetch(`./resources/${list}.json`);
-            const data = await response.json();
-            format = data.format;
-            terms = data.lists || {};
-        } catch (error) {
-            console.error("Error fetching terms:", error);
-        }
-    }
+        // Event listeners for user choice buttons
+        document.querySelectorAll("button.choice").forEach(choice => {
+            choice.addEventListener("mouseover", () => choice.classList.add("hover"));
+            choice.addEventListener("mouseout", () => choice.classList.remove("hover"));
+            choice.addEventListener("mousedown", () => choice.classList.add("active"));
+            choice.addEventListener("mouseup", () => choice.classList.remove("active"));
+            choice.addEventListener("click", () => handleUserChoice(choice.getAttribute("id") === "after"));
+        });
 
-    function formatTerm(termParts, format) {
-        let formattedTerm = format;
-        for (const [listKey, item] of Object.entries(termParts)) {
-            let formattedItem = item;
-            if (terms[listKey].type === "custom") {
-                const listFormat = terms[listKey].format;
-                formattedItem = listFormat;
-                item.forEach((value, index) => {
-                    const placeholder = `{${index + 1}}`;
-                    formattedItem = formattedItem.replace(placeholder, value);
-                });
+        // Event listener for keyboard input
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "ArrowLeft") {
+                handleUserChoice(false);
             }
-            const placeholder = `{${listKey}}`;
-            formattedTerm = formattedTerm.replace(placeholder, formattedItem);
+            if (event.key === "ArrowRight") {
+                handleUserChoice(true);
+            }
+        });
+
+        await loadList(defaultList);
+        createGame();
+    }
+
+    // Function to load the specified list
+    async function loadList(newList) {
+        try {
+            const response = await fetch(`./resources/${newList}.json`);
+            const data = await response.json();
+            formatPattern = data.format; // Set the format pattern for the list
+            listContent = data.elements || {}; // Set the elements of the list
+        } catch (error) {
+            console.error("Error fetching list elements:", error);
         }
-        return formattedTerm;
     }
 
-    function appendTerm() {
-        do {
-            const removedTerm = document.querySelector(".bot:not(.expire)");
-            removeTermElement(removedTerm);
-            const currentTerm = document.querySelector(".top");
-            currentTerm.classList.replace("top", "bot");
-            generateTermElement("top");
-        } while (!document.querySelector(".bot:not(.expire)"));
+    // Function to create the game by clearing existing terms and generating new ones
+    async function createGame() {
+        // Clear existing terms
+        document.querySelectorAll(".term").forEach(term => term.remove());
+
+        // Generate new terms until a bottom term is present
+        while (!document.querySelector(".bot:not(.expire)")) {
+            appendNewTerm();
+        }
     }
 
-    function generateTermElement(index) {
-        let generated = document.createElement("div");
-        game.appendChild(generated);
-        generated.classList.add("term", index);
-        generated.textContent = generateTerm();
+    // Function to append a new term to the game
+    function appendNewTerm() {
+        // Remove the current bottom term
+        const bottomTerm = document.querySelector(".bot:not(.expire)");
+        if (bottomTerm) {
+            bottomTerm.classList.add("expire");
+            bottomTerm.addEventListener("animationend", () => bottomTerm.remove());
+        }
+
+        // Move the top term to the bottom position
+        const topTerm = document.querySelector(".top");
+        if (topTerm) {
+            topTerm.classList.replace("top", "bot");
+        }
+
+        // Generate and append a new top term
+        const newTerm = document.createElement("div");
+        gameContent.appendChild(newTerm);
+        newTerm.classList.add("term", "top");
+        newTerm.textContent = generateTerm();
     }
 
+    // Function to generate a new term based on the list elements and format
     function generateTerm() {
         let term;
-        const listKeys = Object.keys(terms);
+        const elements = Object.keys(listContent);
         do {
-            const termParts = {};
-            listKeys.forEach(listKey => {
-                const items = terms[listKey].items;
-                const randomIndex = Math.floor(Math.random() * items.length);
-                termParts[listKey] = items[randomIndex];
+            const unformattedTerm = {};
+            // Retrieves a random item from each element and appends it to termElements
+            elements.forEach(key => {
+                const items = listContent[key].items;
+                unformattedTerm[key] = items[Math.floor(Math.random() * items.length)];
             });
-            term = formatTerm(termParts, format);
+            term = formatTerm(unformattedTerm, formatPattern);
         } while (term === document.querySelector(".bot:not(.expire)")?.textContent);
         return term;
     }
 
-    function removeTermElement(term) {
-        term.classList.add("expire");
-        term.addEventListener("animationend", () => {
-            term.remove();
-        });
+    // Function to format a term based on the format pattern and term parts
+    function formatTerm(termElements, pattern) {
+        let formattedTerm = pattern;
+        // Iterate over each element of the term
+        for (const [element, item] of Object.entries(termElements)) {
+            let formattedElement = item; // e.g. "To Kill a Mockingbird" or 
+            if (listContent[element].type === "custom") {
+                formattedElement = listContent[element].format;
+                // Replace placeholders in the custom format with actual values "{1}, {0}" -> "Fosse, Jon"
+                item.forEach((value, index) => {
+                    formattedElement = formattedElement.replace(`{${index}}`, value);
+                });
+            }
+            // Replace the placeholder in the overall format pattern with the formatted part "{authors}" = "Fosse, Jon"
+            formattedTerm = formattedTerm.replace(`{${element}}`, formattedElement);
+        }
+        return formattedTerm;
     }
 
-    function createGame() {
-        clearGame();
-        generateTermElement("bot");
-        generateTermElement("top");
-    }
-
-    function clearGame() {
-        const termElements = document.querySelectorAll(".term");
-        termElements.forEach(element => element.remove());
-    }
-
-    function handleChoice(choice) {
-        const result = document.getElementById("result");
-        const correct = choice 
+    // Function to handle user choice and update the game accordingly
+    function handleUserChoice(isAfter) {
+        const resultElement = document.getElementById("result");
+        const isCorrect = isAfter 
             ? document.querySelector(".bot:not(.expire)").textContent.localeCompare(document.querySelector(".top").textContent) <= 0 
             : document.querySelector(".bot:not(.expire)").textContent.localeCompare(document.querySelector(".top").textContent) >= 0;
-        if (correct) {
-            result.textContent = "Correct!";
-            appendTerm();
+        if (isCorrect) {
+            resultElement.textContent = "Correct!";
+            appendNewTerm();
         } else {
-            result.textContent = "Incorrect.";
+            resultElement.textContent = "Incorrect.";
         }
-        result.style.animation = "none";
-        result.offsetHeight;
-        result.style.animation = "";
+        resultElement.style.animation = "none";
+        resultElement.offsetHeight; // Trigger reflow
+        resultElement.style.animation = "";
     }
 
-    async function initialize() {
-        await loadTerms(currentList);
-        createGame();
-        initializeEventListeners();
-    }
-
-    function initializeEventListeners() {
-        document.getElementById("term-type").addEventListener("change", async (event) => {
-            currentList = event.target.value;
-            await loadTerms(currentList);
-            createGame();
-        });
-        const choices = document.querySelectorAll("button.choice");
-        for (const choice of choices) {
-            choice.addEventListener("mouseover", () => {
-                choice.classList.add("hover");
-            });
-            choice.addEventListener("mouseout", () => {
-                choice.classList.remove("hover");
-            });
-            choice.addEventListener("mousedown", () => {
-                choice.classList.add("active");
-            });
-            choice.addEventListener("mouseup", () => {
-                choice.classList.remove("active");
-            });
-            choice.addEventListener("click", () => {
-                handleChoice(choice.getAttribute("id") === "after");
-            });
-        }
-        document.addEventListener("keydown", (event) => {
-            if (event.key === "ArrowLeft") {
-                handleChoice(false);
-            }
-            if (event.key === "ArrowRight") {
-                handleChoice(true);
-            }
-        });
-    }
+    init();
 });

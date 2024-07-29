@@ -1,6 +1,6 @@
 {
     "format": "{call_numbers} {author}",
-    "lists": {
+    "elements": {
         "call_numbers": {
             "type": "static",
             "items": [

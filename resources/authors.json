@@ -1,9 +1,9 @@
 {
     "format": "{authors}",
-    "lists": {
+    "elements": {
         "authors": {
             "type": "custom",
-            "format": "{2}, {1}",
+            "format": "{1}, {0}",
             "items": [
                 [ "Jon", "Fosse" ],
                 [ "Annie", "Ernaux" ],
